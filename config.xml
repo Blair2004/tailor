@@ -1,0 +1,9 @@
+<application>
+    <namespace>tailor</namespace>
+    <name>Tailor</name>
+    <description>Add tailor module to NexoPOS</description>
+    <author>Blair Jersyer</author>
+    <main>Module.php</main>
+    <includes>inc</includes>
+    <version>1.0</version>
+</application>
