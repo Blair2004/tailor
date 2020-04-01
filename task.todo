@@ -1,0 +1,6 @@
+- make sure while editing an order the informations are
+  * deleted (old informations)
+  * updated (add new informations)
+- make orders image (uploaded) available from the order list
+- printable order details (measures)
+

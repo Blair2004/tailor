@@ -1,6 +1,8 @@
 <?php
 namespace Tailor\Inc;
 
+use Tendoo_Module;
+
 class Actions extends Tendoo_Module
 {
     public function __construct()
@@ -12,6 +14,16 @@ class Actions extends Tendoo_Module
     {
         if ( $namespace === 'tailor' ) {
             $this->setup    =   new Setup;
+            $this->load->model( 'Nexo_Stores' );
+            $stores     =   $this->Nexo_Stores->get();
+
+            collect( $stores )->prepend([
+                'ID'    =>  0
+            ])->each( function( $store ) {
+                $store_prefix   =   store_prefix( $store[ 'ID' ] );
+                var_dump( $store );
+                $this->setup->install( $store_prefix );
+            });
         }
     }
 
