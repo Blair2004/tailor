@@ -21,10 +21,22 @@ class Actions extends Tendoo_Module
                 'ID'    =>  0
             ])->each( function( $store ) {
                 $store_prefix   =   store_prefix( $store[ 'ID' ] );
-                var_dump( $store );
                 $this->setup->install( $store_prefix );
             });
         }
+    }
+
+    public function load_dashboard()
+    {
+        $config     =   $this->config->item( 'nexo_orders_status' );
+        $config[ 'pending' ]    =   __( 'Pending', 'tailor' );
+        $config[ 'completed' ]  =   __( 'Ready', 'tailor' );
+        $this->config->set_item( 'nexo_orders_status', $config );
+    }
+
+    public function nexo_orders_footer()
+    {
+        $this->load->module_view( 'tailor', 'orders.footer' );
     }
 
     public function load_pos_footer( $namespace )

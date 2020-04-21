@@ -21,6 +21,13 @@ class Module extends Tendoo_Module
         $this->events->add_action( 'load_pos_footer', [ $this->actions, 'load_pos_footer' ]);
         $this->events->add_filter( 'after_submit_order', [ $this->filters, 'afterSubmitOrder' ], 10 );
         $this->events->add_filter( 'post_order_details', [ $this->filters, 'filter_post' ], 10, 3 );
+        $this->events->add_filter( 'put_order_details', [ $this->filters, 'filter_post' ], 10, 4 );
+        $this->events->add_filter( 'nexo_full_order', [ $this->filters, 'nexo_full_order' ], 10, 2 );
+        $this->events->add_filter( 'nexo_commandes_loaded', [ $this->filters, 'nexo_commandes_loaded' ]);
+        $this->events->add_action( 'nexo_orders_footer', [ $this->actions, 'nexo_orders_footer' ]);
+        $this->events->add_action( 'load_dashboard', [ $this->actions, 'load_dashboard' ], 20 );
+        $this->events->add_filter( 'admin_menus', [ $this->filters, 'admin_menus' ], 30 );
+        // $this->events->add_filter( 'after_order_placed_details', [ $this->filters, 'update_placed_details' ], 10, 3 );
     }
 }
 

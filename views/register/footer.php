@@ -8,6 +8,8 @@ const TailorAppData     =   {
         shirt: `<?php echo __( 'Shirt', 'tailor' );?>`,
         pant: `<?php echo __( 'Pant', 'tailor' );?>`,
         style : `<?php echo __( 'Style', 'tailor' );?>`,
+        aroundNeck: `<?php echo __( 'Around Neck', 'tailor' );?>`,
+        neckShoulderLength: `<?php echo __( 'Neck Shoulder', 'tailor' );?>`,
         aroundWaist : `<?php echo __( 'Around Waist', 'tailor' );?>`,
         aroundHip : `<?php echo __( 'Around Hip', 'tailor' );?>`,
         frontRise : `<?php echo __( 'Front Rise', 'tailor' );?>`,
@@ -17,8 +19,6 @@ const TailorAppData     =   {
         aroundKnee : `<?php echo __( 'Around Knee', 'tailor' );?>`,
         legOpening : `<?php echo __( 'Leg Opening', 'tailor' );?>`,
         delivery : `<?php echo __( 'Delivery', 'tailor' );?>`,
-        aroundNeck: `<?php echo __( 'Around Neck', 'tailor' );?>`,
-        neckShoulderLength: `<?php echo __( 'Neck Shoulder', 'tailor' );?>`,
         shoulderShoulder: `<?php echo __( 'Shoulder-Shoulder', 'tailor' );?>`,
         aroundChest: `<?php echo __( 'Around Chest', 'tailor' );?>`,
         sleeveLength: `<?php echo __( 'Sleeve Length', 'tailor' );?>`,
@@ -49,11 +49,27 @@ const TailorApp     =   new Vue({
         $( '.tailor' ).bind( 'click', () => this.openPopup() );
         NexoAPI.events.addFilter( 'nexo_open_save_box', () => this.checkMeasures( 'save' ) );
         NexoAPI.events.addFilter( 'openPayBox', () => this.checkMeasures( 'payment' ) );
+        NexoAPI.events.addAction( 'open_order_on_pos', ( details ) => this.populateMeasure( details ) );
     },
     data: {
         ...TailorAppData,
     },
     methods: {
+        populateMeasure( details ) {
+            const measures  =   details.measures;
+            let { state, priority, expiration_date, delivery, assigned_tailor }   =   details.measures;
+
+            expiration_date     =   moment( expiration_date, 'MM/DD/YYYY' ).format( 'YYYY-MM-DD' );
+            delivery            =   moment( delivery, 'MM/DD/YYYY' ).format( 'YYYY-MM-DD' );
+            
+            v2Checkout.CartMetas[ 'tailor' ]    =   { pant: {}, shirt: {}, priority, expiration_date, delivery, assigned_tailor };
+            for( key in measures.pant )  {
+                v2Checkout.CartMetas[ 'tailor' ].pant[ key.toLowerCase() ]  =   measures.pant[ key ];
+            }
+            for( key in measures.shirt )  {
+                v2Checkout.CartMetas[ 'tailor' ].shirt[ key.toLowerCase() ]  =   measures.shirt[ key ];
+            }
+        },  
         checkMeasures( action ) {
             const result    =   this.isMeasuresDefined();
 
@@ -87,7 +103,7 @@ const TailorApp     =   new Vue({
                         </ul>
                         <div style="padding: 10px" v-if="selectedTab === 'pant'">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>{{ textDomain.style }}</label>
                                         <input class="form-control" v-model="tailor.pant.style">
@@ -109,7 +125,7 @@ const TailorApp     =   new Vue({
                                         <input class="form-control" v-model="tailor.pant.around_thigh">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>{{ textDomain.length }}</label>
                                         <input class="form-control" v-model="tailor.pant.length">
@@ -131,7 +147,7 @@ const TailorApp     =   new Vue({
                         </div>
                         <div style="padding: 10px" v-if="selectedTab === 'shirt'">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>{{ textDomain.style }}</label>
                                         <input class="form-control" v-model="tailor.shirt.style">
@@ -157,7 +173,7 @@ const TailorApp     =   new Vue({
                                         <input class="form-control" v-model="tailor.shirt.sleeve_length">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>{{ textDomain.sleeveCuff }}</label>
                                         <input class="form-control" v-model="tailor.shirt.sleeve_cuff">

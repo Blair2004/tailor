@@ -13,6 +13,7 @@ class Setup extends Tendoo_Module
 
         if( ! in_array( 'ASSIGNED_TAILOR', $columns ) ) {
             $this->db->query( 'ALTER TABLE `'. $this->db->dbprefix . $store_prefix .'nexo_commandes` ADD `ASSIGNED_TAILOR` int(11) NOT NULL AFTER `AUTHOR`;');
+            $this->db->query( 'ALTER TABLE `'. $this->db->dbprefix . $store_prefix .'nexo_commandes` ADD `TAILOR_PRIORITY` varchar(20) NOT NULL AFTER `AUTHOR`;');
             $this->db->query( 'ALTER TABLE `'. $this->db->dbprefix . $store_prefix .'nexo_commandes` ADD `TAILOR_DELIVERY_DATE` datetime NOT NULL AFTER `AUTHOR`;');
             $this->db->query( 'ALTER TABLE `'. $this->db->dbprefix . $store_prefix .'nexo_commandes` ADD `TAILOR_EXPIRATION_DATE` datetime NOT NULL AFTER `AUTHOR`;');
             $this->db->query( 'ALTER TABLE `'. $this->db->dbprefix . $store_prefix .'nexo_commandes` ADD `TAILOR_STATE` varchar(200) NOT NULL AFTER `AUTHOR`;');

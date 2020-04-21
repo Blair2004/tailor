@@ -1,5 +1,6 @@
 {
     "require": {
-        "melihovv/base64-image-decoder": "^0.2.0"
+        "melihovv/base64-image-decoder": "^0.2.0",
+        "telegram-bot/api": "^2.3"
     }
 }

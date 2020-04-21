@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'TelegramBot\\Api\\' => array($vendorDir . '/telegram-bot/api/src'),
     'Melihovv\\Base64ImageDecoder\\' => array($vendorDir . '/melihovv/base64-image-decoder/src'),
 );

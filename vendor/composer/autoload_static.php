@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit2f63fe0af46c44836c0e8e6dd879c405
 {
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'TelegramBot\\Api\\' => 16,
+        ),
         'M' => 
         array (
             'Melihovv\\Base64ImageDecoder\\' => 28,
@@ -14,6 +18,10 @@ class ComposerStaticInit2f63fe0af46c44836c0e8e6dd879c405
     );
 
     public static $prefixDirsPsr4 = array (
+        'TelegramBot\\Api\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/telegram-bot/api/src',
+        ),
         'Melihovv\\Base64ImageDecoder\\' => 
         array (
             0 => __DIR__ . '/..' . '/melihovv/base64-image-decoder/src',
